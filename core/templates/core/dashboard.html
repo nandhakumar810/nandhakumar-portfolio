@@ -1,0 +1,359 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nandhakumar P | Admin Dashboard</title>
+    <!-- Meta robots tag to prevent search indexing of admin pages -->
+    <meta name="robots" content="noindex, nofollow">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Main Style Sheet -->
+    <link rel="stylesheet" href="{% static 'core/css/style.css' %}">
+</head>
+<body>
+
+    <!-- Background Canvas for Interactive Binary/Node Particles -->
+    <canvas id="bg-canvas"></canvas>
+
+    <!-- Header Navigation -->
+    <header>
+        <div class="container">
+            <nav>
+                <a href="/" class="logo">
+                    <i class="fa-solid fa-brain"></i> NANDHA<span>KUMAR</span> <span style="font-size: 0.8rem; padding: 0.2rem 0.5rem; background: rgba(0,240,255,0.1); border-radius: 4px; color: var(--primary);">Admin Portal</span>
+                </a>
+                <ul class="nav-links">
+                    <li><a href="/">Back to Site</a></li>
+                    {% if authenticated %}
+                    <li><a href="#" id="admin-logout-btn" class="nav-btn">Log Out</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container" style="padding-top: 100px; min-height: 85vh;">
+        
+        {% if not authenticated %}
+        <!-- PASSCODE PROTECTION SCREEN -->
+        <div class="admin-login-card glass-panel">
+            <h2 style="font-family: 'Outfit', sans-serif; text-align: center; margin-bottom: 2rem;"><i class="fa-solid fa-lock" style="color: var(--primary);"></i> Admin Access</h2>
+            <form id="admin-login-form">
+                <div class="form-group">
+                    <label for="admin-passcode">Enter Admin Passcode</label>
+                    <input type="password" id="admin-passcode" placeholder="Passcode (Default: 12345)" required>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Authenticate</button>
+            </form>
+            <p style="font-size: 0.8rem; color: var(--text-muted); text-align: center; margin-top: 1.5rem;">
+                Authorized access only. Actions are logged.
+            </p>
+        </div>
+        
+        {% else %}
+        <!-- AUTHENTICATED ADMIN DASHBOARD -->
+        <div class="admin-header">
+            <div>
+                <h1 class="admin-title">Developer Hub</h1>
+                <p style="color: var(--text-muted);">Manage contact queries and moderate public guestbook remarks.</p>
+            </div>
+        </div>
+
+        <div class="admin-grid">
+            <!-- 1. Contact Messages Column -->
+            <div class="glass-panel" style="padding: 2rem;">
+                <h3 class="soft-skills-title" style="margin-bottom: 1rem;"><i class="fa-solid fa-envelope" style="color: var(--primary);"></i> Inbound Inquiries (${messages|length})</h3>
+                <div class="table-container">
+                    {% if not messages %}
+                    <div style="text-align: center; padding: 3rem 0; color: var(--text-muted);">No messages received yet.</div>
+                    {% else %}
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Details</th>
+                                <th>Message</th>
+                                <th style="width: 80px;">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for msg in messages %}
+                            <tr id="message-row-{{ msg.id }}">
+                                <td>
+                                    <strong>{{ msg.name }}</strong><br>
+                                    <span style="font-size: 0.8rem; color: var(--text-muted);">
+                                        <a href="mailto:{{ msg.email }}" style="color: var(--text-muted); text-decoration: none;">{{ msg.email }}</a><br>
+                                        {{ msg.created_at|date:"Y-m-d H:i" }}
+                                    </span>
+                                </td>
+                                <td>
+                                    <span style="color: var(--primary); font-weight: 500;">{{ msg.subject }}</span><br>
+                                    <span style="font-size: 0.85rem; color: var(--text-muted); white-space: pre-wrap;">{{ msg.message }}</span>
+                                </td>
+                                <td>
+                                    <button onclick="deleteMessage({{ msg.id }})" class="action-btn btn-delete" title="Delete Inquiry"><i class="fa-solid fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- 2. Guestbook Moderation Column -->
+            <div class="glass-panel" style="padding: 2rem;">
+                <h3 class="soft-skills-title" style="margin-bottom: 1rem;"><i class="fa-solid fa-comments" style="color: var(--secondary);"></i> Guestbook Moderation (${guestbook_entries|length})</h3>
+                <div class="table-container">
+                    {% if not guestbook_entries %}
+                    <div style="text-align: center; padding: 3rem 0; color: var(--text-muted);">No guestbook submissions yet.</div>
+                    {% else %}
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Visitor</th>
+                                <th>Message</th>
+                                <th style="width: 120px;">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for entry in guestbook_entries %}
+                            <tr id="guestbook-row-{{ entry.id }}">
+                                <td>
+                                    <strong>{{ entry.name }}</strong><br>
+                                    <span style="font-size: 0.8rem; color: var(--text-muted);">{{ entry.category }}</span><br>
+                                    {% if entry.is_approved %}
+                                    <span class="badge-approved">Approved</span>
+                                    {% else %}
+                                    <span class="badge-pending" id="status-badge-{{ entry.id }}">Pending</span>
+                                    {% endif %}
+                                </td>
+                                <td style="font-size: 0.85rem; color: var(--text-muted);">
+                                    {{ entry.message }}
+                                </td>
+                                <td>
+                                    <div style="display: flex; gap: 0.5rem;">
+                                        {% if not entry.is_approved %}
+                                        <button onclick="approveComment({{ entry.id }})" id="approve-btn-{{ entry.id }}" class="action-btn btn-approve" title="Approve Comment"><i class="fa-solid fa-check"></i></button>
+                                        {% endif %}
+                                        <button onclick="deleteComment({{ entry.id }})" class="action-btn btn-delete" title="Delete Comment"><i class="fa-solid fa-trash"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+    </div>
+
+    <!-- Global Toast Alert -->
+    <div id="toast" class="toast">Message status</div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p class="footer-text">&copy; 2026 Nandhakumar P. Admin Console.</p>
+        </div>
+    </footer>
+
+    <!-- Canvas Logic Scripts -->
+    <script>
+        // Copy canvas background logic to dashboard page for cohesive visual styling
+        document.addEventListener('DOMContentLoaded', () => {
+            initCanvasParticles();
+            
+            // Login script
+            const loginForm = document.getElementById('admin-login-form');
+            if (loginForm) {
+                loginForm.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    const passcode = document.getElementById('admin-passcode').value;
+                    
+                    try {
+                        const response = await fetch('/api/dashboard/actions/', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ action: 'login', passcode: passcode })
+                        });
+                        const result = await response.json();
+                        if (response.ok && result.status === 'success') {
+                            window.location.reload();
+                        } else {
+                            showToast(result.message || 'Authentication failed', true);
+                        }
+                    } catch (err) {
+                        showToast('Network error occurred.', true);
+                    }
+                });
+            }
+            
+            // Logout script
+            const logoutBtn = document.getElementById('admin-logout-btn');
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', async (e) => {
+                    e.preventDefault();
+                    try {
+                        const response = await fetch('/api/dashboard/actions/', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ action: 'logout' })
+                        });
+                        if (response.ok) {
+                            window.location.reload();
+                        }
+                    } catch (err) {
+                        showToast('Failed to log out.', true);
+                    }
+                });
+            }
+        });
+
+        // 1. Futuristic Canvas Background
+        function initCanvasParticles() {
+            const canvas = document.getElementById('bg-canvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            
+            let width = (canvas.width = window.innerWidth);
+            let height = (canvas.height = window.innerHeight);
+            
+            window.addEventListener('resize', () => {
+                width = (canvas.width = window.innerWidth);
+                height = (canvas.height = window.innerHeight);
+            });
+            
+            const particles = [];
+            const maxParticles = 40;
+            
+            class Particle {
+                constructor() {
+                    this.x = Math.random() * width;
+                    this.y = Math.random() * height;
+                    this.vx = (Math.random() - 0.5) * 0.3;
+                    this.vy = (Math.random() - 0.5) * 0.3;
+                    this.radius = Math.random() * 2 + 1;
+                }
+                
+                draw() {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = 'rgba(0, 240, 255, 0.15)';
+                    ctx.fill();
+                }
+                
+                update() {
+                    this.x += this.vx;
+                    this.y += this.vy;
+                    if (this.x < 0 || this.x > width) this.vx *= -1;
+                    if (this.y < 0 || this.y > height) this.vy *= -1;
+                }
+            }
+            
+            for (let i = 0; i < maxParticles; i++) {
+                particles.push(new Particle());
+            }
+            
+            function animate() {
+                ctx.clearRect(0, 0, width, height);
+                for (let i = 0; i < particles.length; i++) {
+                    for (let j = i + 1; j < particles.length; j++) {
+                        const dist = Math.hypot(particles[i].x - particles[j].x, particles[i].y - particles[j].y);
+                        if (dist < 120) {
+                            ctx.beginPath();
+                            ctx.moveTo(particles[i].x, particles[i].y);
+                            ctx.lineTo(particles[j].x, particles[j].y);
+                            ctx.strokeStyle = `rgba(0, 240, 255, ${0.08 * (1 - dist / 120)})`;
+                            ctx.lineWidth = 0.5;
+                            ctx.stroke();
+                        }
+                    }
+                }
+                particles.forEach((p) => {
+                    p.update();
+                    p.draw();
+                });
+                requestAnimationFrame(animate);
+            }
+            animate();
+        }
+
+        // Action Handlers
+        async function runAction(payload) {
+            try {
+                const response = await fetch('/api/dashboard/actions/', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                const result = await response.json();
+                if (response.ok && result.status === 'success') {
+                    showToast(result.message);
+                    return true;
+                } else {
+                    showToast(result.message || 'Operation failed', true);
+                    return false;
+                }
+            } catch (err) {
+                showToast('Network error occurred.', true);
+                return false;
+            }
+        }
+
+        async function approveComment(id) {
+            const success = await runAction({ action: 'approve_guestbook', id: id });
+            if (success) {
+                // Update badge and remove approve button
+                const row = document.getElementById(`guestbook-row-${id}`);
+                const statusBadge = document.getElementById(`status-badge-${id}`);
+                if (statusBadge) {
+                    statusBadge.className = 'badge-approved';
+                    statusBadge.textContent = 'Approved';
+                }
+                const approveBtn = document.getElementById(`approve-btn-${id}`);
+                if (approveBtn) {
+                    approveBtn.remove();
+                }
+            }
+        }
+
+        async function deleteComment(id) {
+            if (confirm('Are you sure you want to delete this guestbook entry?')) {
+                const success = await runAction({ action: 'delete_guestbook', id: id });
+                if (success) {
+                    document.getElementById(`guestbook-row-${id}`).remove();
+                }
+            }
+        }
+
+        async function deleteMessage(id) {
+            if (confirm('Are you sure you want to delete this contact message?')) {
+                const success = await runAction({ action: 'delete_message', id: id });
+                if (success) {
+                    document.getElementById(`message-row-${id}`).remove();
+                }
+            }
+        }
+
+        function showToast(message, isError = false) {
+            const toast = document.getElementById('toast');
+            if (!toast) return;
+            toast.textContent = message;
+            if (isError) {
+                toast.classList.add('error');
+            } else {
+                toast.classList.remove('error');
+            }
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

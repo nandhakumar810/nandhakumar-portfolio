@@ -1,0 +1,424 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nandhakumar P | AI & Data Science Portfolio</title>
+    <!-- Meta Descriptions for SEO -->
+    <meta name="description" content="Professional portfolio of Nandhakumar P, B.Tech Artificial Intelligence and Data Science graduate. Showcasing machine learning projects, full stack development, and certifications.">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Main Style Sheet -->
+    <link rel="stylesheet" href="{% static 'core/css/style.css' %}">
+</head>
+<body>
+
+    <!-- Background Canvas for Interactive Binary/Node Particles -->
+    <canvas id="bg-canvas"></canvas>
+
+    <!-- Sticky Navigation Bar -->
+    <header>
+        <div class="container">
+            <nav>
+                <a href="#home" class="logo">
+                    <i class="fa-solid fa-brain"></i> NANDHA<span>KUMAR</span>
+                </a>
+                <ul class="nav-links">
+                    <li><a href="#home" class="active">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#skills">Skills</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#certs">Certificates</a></li>
+                    <li><a href="#guestbook">Guestbook</a></li>
+                    <li><a href="#contact" class="nav-btn">Contact Me</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 1. Hero Section -->
+    <section id="home" class="container">
+        <div class="hero-content">
+            <div class="hero-tagline">Initializing Portfolio...</div>
+            <h1 class="hero-title">NANDHAKUMAR P</h1>
+            <div class="hero-subtitle">
+                <span id="typing-text">B.Tech in Artificial Intelligence & Data Science</span>
+            </div>
+            <p style="color: var(--text-muted); max-width: 600px; margin-bottom: 2.5rem;">
+                Passionate AI Engineer and Full Stack Developer. Building systems at the intersection of Computer Vision, Deep Learning, and modern web frameworks like Django.
+            </p>
+            <div class="hero-cta">
+                <a href="#projects" class="btn btn-primary">View Projects</a>
+                <a href="#contact" class="btn btn-secondary">Get In Touch</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. About & Education Section -->
+    <section id="about" class="section">
+        <div class="container">
+            <h2 class="section-title">About Me</h2>
+            <div class="about-grid">
+                <!-- Bio Description -->
+                <div class="about-card glass-panel">
+                    <div class="bio-highlight">
+                        Transforming complex algorithms into intelligent, user-centric software solutions.
+                    </div>
+                    <div class="about-text">
+                        <p>
+                            I hold a B.Tech degree in Artificial Intelligence and Data Science from Dhanalakshmi Srinivasan Engineering College. My academic training has equipped me with a strong foundation in machine learning, deep neural networks, and data analytics.
+                        </p>
+                        <p>
+                            I love building applications that solve real-world problems. Whether it's developing computer vision systems that interpret human action to assist communication, or deploying full-stack web applications backed by robust databases, I approach software with dedication and structural engineering.
+                        </p>
+                    </div>
+                    <!-- Soft Skills -->
+                    <div class="soft-skills-container">
+                        <h3 class="soft-skills-title">Core Competencies</h3>
+                        <div class="soft-skills-tags">
+                            <span class="soft-tag"><i class="fa-solid fa-users"></i> Team Collaboration</span>
+                            <span class="soft-tag"><i class="fa-solid fa-lightbulb"></i> Problem Solving</span>
+                            <span class="soft-tag"><i class="fa-solid fa-sliders"></i> Adaptability</span>
+                            <span class="soft-tag"><i class="fa-solid fa-graduation-cap"></i> Willingness to Learn</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Education Timeline -->
+                <div class="about-card glass-panel">
+                    <h3 class="soft-skills-title" style="margin-bottom: 1.5rem;"><i class="fa-solid fa-graduation-cap" style="color: var(--primary);"></i> Academic Path</h3>
+                    <div class="education-timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-date">2021 - 2025</div>
+                            <div class="timeline-title">B.Tech Artificial Intelligence & Data Science</div>
+                            <div class="timeline-institution">Dhanalakshmi Srinivasan Engineering College, Perambalur</div>
+                            <div class="timeline-details">CGPA: <strong>7.6 / 10</strong></div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-date">2020 - 2021</div>
+                            <div class="timeline-title">Higher Secondary Certificate (HSC)</div>
+                            <div class="timeline-institution">Govt Model Hr Sec School, Ariyalur</div>
+                            <div class="timeline-details">Score: <strong>84%</strong></div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-date">2018 - 2019</div>
+                            <div class="timeline-title">Secondary School Leaving Certificate (SSLC)</div>
+                            <div class="timeline-institution">Swami Matriculation Hr Sec School, Ariyalur</div>
+                            <div class="timeline-details">Score: <strong>83%</strong></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. Technical Skills Section -->
+    <section id="skills" class="section">
+        <div class="container">
+            <h2 class="section-title">Technical Expertise</h2>
+            <div class="skills-grid">
+                <!-- Programming Languages -->
+                <div class="skill-category glass-panel">
+                    <div class="category-title">
+                        <span>Languages</span>
+                        <i class="fa-solid fa-code"></i>
+                    </div>
+                    <div class="skills-list">
+                        <div class="skill-bar-container">
+                            <div class="skill-info">
+                                <span class="skill-name">Python Programming</span>
+                                <span class="skill-pct">90%</span>
+                            </div>
+                            <div class="skill-track"><div class="skill-fill" data-percentage="90"></div></div>
+                        </div>
+                        <div class="skill-bar-container">
+                            <div class="skill-info">
+                                <span class="skill-name">SQL (Structured Query Language)</span>
+                                <span class="skill-pct">80%</span>
+                            </div>
+                            <div class="skill-track"><div class="skill-fill" data-percentage="80"></div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Web Development Frameworks -->
+                <div class="skill-category glass-panel">
+                    <div class="category-title">
+                        <span>Frameworks & Web</span>
+                        <i class="fa-solid fa-cubes"></i>
+                    </div>
+                    <div class="skills-list">
+                        <div class="skill-bar-container">
+                            <div class="skill-info">
+                                <span class="skill-name">Django (Python Web Framework)</span>
+                                <span class="skill-pct">75%</span>
+                            </div>
+                            <div class="skill-track"><div class="skill-fill" data-percentage="75"></div></div>
+                        </div>
+                        <div class="skill-bar-container">
+                            <div class="skill-info">
+                                <span class="skill-name">HTML5 / CSS3</span>
+                                <span class="skill-pct">85%</span>
+                            </div>
+                            <div class="skill-track"><div class="skill-fill" data-percentage="85"></div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Libraries & Databases -->
+                <div class="skill-category glass-panel">
+                    <div class="category-title">
+                        <span>Libraries & DBs</span>
+                        <i class="fa-solid fa-database"></i>
+                    </div>
+                    <div class="skills-list">
+                        <div class="skill-bar-container">
+                            <div class="skill-info">
+                                <span class="skill-name">MySQL Database</span>
+                                <span class="skill-pct">80%</span>
+                            </div>
+                            <div class="skill-track"><div class="skill-fill" data-percentage="80"></div></div>
+                        </div>
+                        <div class="skill-bar-container">
+                            <div class="skill-info">
+                                <span class="skill-name">NumPy & Pandas (Data Science)</span>
+                                <span class="skill-pct">80%</span>
+                            </div>
+                            <div class="skill-track"><div class="skill-fill" data-percentage="80"></div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tools & Platforms -->
+                <div class="skill-category glass-panel">
+                    <div class="category-title">
+                        <span>Tools & Workflows</span>
+                        <i class="fa-solid fa-screwdriver-wrench"></i>
+                    </div>
+                    <div class="skills-list">
+                        <div class="skill-bar-container">
+                            <div class="skill-info">
+                                <span class="skill-name">GitHub / Version Control</span>
+                                <span class="skill-pct">85%</span>
+                            </div>
+                            <div class="skill-track"><div class="skill-fill" data-percentage="85"></div></div>
+                        </div>
+                        <div class="skill-bar-container">
+                            <div class="skill-info">
+                                <span class="skill-name">VS Code / Dev Tools</span>
+                                <span class="skill-pct">90%</span>
+                            </div>
+                            <div class="skill-track"><div class="skill-fill" data-percentage="90"></div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. Projects Section -->
+    <section id="projects" class="section">
+        <div class="container">
+            <h2 class="section-title">Selected Projects</h2>
+            <div class="projects-grid">
+                <!-- Project 1 -->
+                <div class="project-card glass-panel">
+                    <div class="project-icon"><i class="fa-solid fa-eye"></i></div>
+                    <h3 class="project-title">Blink-Based Morse Code to Personalized Voice</h3>
+                    <p class="project-desc">
+                        Developed an assistive communication system utilizing Python and computer vision (MediaPipe) to capture eye blink patterns, convert blinks into Morse code characters, and render them as real-time text output.
+                    </p>
+                    <p class="project-desc" style="font-size: 0.9rem; margin-top: -1rem;">
+                        Integrated Tortoise TTS (Text-to-Speech) for personalized voice synthesis, generating speech output synthesized from target user voice samples to assist individuals with speech impairments.
+                    </p>
+                    <div class="project-tech">
+                        <span class="tech-badge">Python</span>
+                        <span class="tech-badge">MediaPipe</span>
+                        <span class="tech-badge">OpenCV</span>
+                        <span class="tech-badge">Tortoise TTS</span>
+                        <span class="tech-badge">Deep Learning</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://github.com" target="_blank" class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.85rem;"><i class="fa-brands fa-github"></i> Repository</a>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="project-card glass-panel">
+                    <div class="project-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                    <h3 class="project-title">Prevention of Adversarial Attacks on MNIST</h3>
+                    <p class="project-desc">
+                        Built and optimized a Convolutional Neural Network (CNN) in Python to classify handwritten digits from the classic MNIST dataset. 
+                    </p>
+                    <p class="project-desc" style="font-size: 0.9rem; margin-top: -1rem;">
+                        Generated adversarial examples (using methods like FGSM) to evaluate and stress-test model robustness, identifying critical vulnerabilities in image classification architectures.
+                    </p>
+                    <div class="project-tech">
+                        <span class="tech-badge">Python</span>
+                        <span class="tech-badge">TensorFlow / Keras</span>
+                        <span class="tech-badge">CNN</span>
+                        <span class="tech-badge">Adversarial ML</span>
+                        <span class="tech-badge">NumPy</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://github.com" target="_blank" class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.85rem;"><i class="fa-brands fa-github"></i> Repository</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. Certifications Section -->
+    <section id="certs" class="section">
+        <div class="container">
+            <h2 class="section-title">Certifications</h2>
+            <div class="certs-grid">
+                <!-- Cert 1 -->
+                <div class="cert-card glass-panel">
+                    <i class="fa-solid fa-medal cert-badge-icon"></i>
+                    <h3 class="cert-title">Python Full Stack</h3>
+                    <div class="cert-issuer">IBM SkillsBuild</div>
+                </div>
+                <!-- Cert 2 -->
+                <div class="cert-card glass-panel">
+                    <i class="fa-solid fa-medal cert-badge-icon"></i>
+                    <h3 class="cert-title">AWS Cloud Architecture</h3>
+                    <div class="cert-issuer">ICT Academy</div>
+                </div>
+                <!-- Cert 3 -->
+                <div class="cert-card glass-panel">
+                    <i class="fa-solid fa-medal cert-badge-icon"></i>
+                    <h3 class="cert-title">Artificial Intelligence</h3>
+                    <div class="cert-issuer">Mahendra Engineering College</div>
+                </div>
+                <!-- Cert 4 -->
+                <div class="cert-card glass-panel">
+                    <i class="fa-solid fa-medal cert-badge-icon"></i>
+                    <h3 class="cert-title">Python for Data Science</h3>
+                    <div class="cert-issuer">IBM</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. Guestbook Section -->
+    <section id="guestbook" class="section">
+        <div class="container">
+            <h2 class="section-title">Visitor Guestbook</h2>
+            <div class="guestbook-section">
+                <!-- Comment submission form -->
+                <div class="glass-panel" style="padding: 2.5rem;">
+                    <h3 class="soft-skills-title" style="margin-bottom: 1.5rem;"><i class="fa-solid fa-pen-nib" style="color: var(--primary);"></i> Leave a Message</h3>
+                    <form id="guestbook-form">
+                        <div class="form-group">
+                            <label for="guestbook-name">Name / Institution *</label>
+                            <input type="text" id="guestbook-name" placeholder="John Doe or Acme Corp" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="guestbook-category">Identify as</label>
+                            <select id="guestbook-category">
+                                <option value="Visitor">Visitor</option>
+                                <option value="Recruiter">Recruiter / Employer</option>
+                                <option value="Peer">Developer / Colleague</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="guestbook-message">Your Message *</label>
+                            <textarea id="guestbook-message" rows="4" placeholder="Say hello, provide feedback, or leave a note..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">Post to Guestbook</button>
+                    </form>
+                </div>
+
+                <!-- Feed of comments -->
+                <div>
+                    <h3 class="soft-skills-title" style="margin-bottom: 1.5rem;"><i class="fa-solid fa-comments" style="color: var(--secondary);"></i> Greetings Feed</h3>
+                    <div id="guestbook-feed" class="comments-feed">
+                        <div class="no-comments">Connecting to server...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. Contact Section -->
+    <section id="contact" class="section">
+        <div class="container">
+            <h2 class="section-title">Get in Touch</h2>
+            <div class="contact-grid">
+                <!-- Info cards -->
+                <div class="contact-info">
+                    <div class="info-item">
+                        <div class="info-icon"><i class="fa-solid fa-envelope"></i></div>
+                        <div class="info-content">
+                            <h4>Email</h4>
+                            <p><a href="mailto:nandhakumarpalani07@gmail.com">nandhakumarpalani07@gmail.com</a></p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-icon"><i class="fa-solid fa-phone"></i></div>
+                        <div class="info-content">
+                            <h4>Phone</h4>
+                            <p><a href="tel:+916369809920">+91 63698 09920</a></p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-icon"><i class="fa-solid fa-location-dot"></i></div>
+                        <div class="info-content">
+                            <h4>Location</h4>
+                            <p>Ariyalur, Tamil Nadu, India</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Message form -->
+                <div class="glass-panel" style="padding: 2.5rem;">
+                    <form id="contact-form">
+                        <div class="form-group">
+                            <label for="contact-name">Your Name *</label>
+                            <input type="text" id="contact-name" placeholder="Enter your name" required>
+                        </div>
+                        <div class="form-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
+                            <div>
+                                <label for="contact-email">Email Address *</label>
+                                <input type="email" id="contact-email" placeholder="example@email.com" required>
+                            </div>
+                            <div>
+                                <label for="contact-subject">Subject</label>
+                                <input type="text" id="contact-subject" placeholder="Project collaboration, etc.">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="contact-message">Message *</label>
+                            <textarea id="contact-message" rows="5" placeholder="Write your message here..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Send Message <i class="fa-solid fa-paper-plane" style="margin-left: 0.5rem;"></i></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Global Toast Alert -->
+    <div id="toast" class="toast">Message status</div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p class="footer-text">&copy; 2026 Nandhakumar P. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="https://github.com" target="_blank"><i class="fa-brands fa-github"></i> GitHub</a>
+                <a href="https://linkedin.com" target="_blank"><i class="fa-brands fa-linkedin"></i> LinkedIn</a>
+                <a href="/dashboard/" style="border-left: 1px solid var(--border-color); padding-left: 1.5rem;"><i class="fa-solid fa-lock"></i> Admin Board</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- App Logic Script -->
+    <script src="{% static 'core/js/app.js' %}"></script>
+</body>
+</html>
