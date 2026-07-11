@@ -82,46 +82,14 @@ WSGI_APPLICATION = 'portfolio_project.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'portfolio_db',
-        'USER': 'root',
-        'PASSWORD': 'Nandha78269@',  # Enter your MySQL password here
-        'HOST': '127.0.0.1',
-        'PORT': '3306',
-        'OPTIONS': {
-            'charset': 'utf8mb4',
-        }
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+        
     }
 }
 
 # If MySQL connection fails (e.g. database doesn't exist yet or server is down), fallback to SQLite for local development
-if 'test' not in sys.argv:
-    try:
-        import MySQLdb
-        db = MySQLdb.connect(
-            host=DATABASES['default']['HOST'],
-            user=DATABASES['default']['USER'],
-            passwd=DATABASES['default']['PASSWORD'],
-            port=int(DATABASES['default']['PORT'])
-        )
-        db.close()
-    except Exception as e:
-        print("\n" + "="*80)
-        print("WARNING: Could not connect to MySQL database at localhost:3306.")
-        print(f"Error: {e}")
-        print("Falling back to local SQLite database (db.sqlite3) for setup/development.")
-        print("Please ensure MySQL is running and a database named 'portfolio_db' exists if you wish to use MySQL.")
-        print("="*80 + "\n")
-        DATABASES = {
-            'default': {
-                'ENGINE': 'django.db.backends.sqlite3',
-                'NAME': BASE_DIR / 'db.sqlite3',
-            }
-        }
 
-
-# Password validation
-# https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
